@@ -1,9 +1,0 @@
-{
-  "symbol": "BTC",
-  "min_param": 5,
-  "price_param": 1,
-  "api_key": "5e86a37f72c02d00067b751f",
-  "api_secret": "f430a88e-0528-49ed-a10a-d91ddfc25fba",
-  "api_passphrase": "qwe895629",
-  "is_sandbox": true
-}
