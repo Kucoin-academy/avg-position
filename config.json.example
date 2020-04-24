@@ -1,0 +1,9 @@
+{
+  "api_key": "api key",
+  "api_secret": "api secret",
+  "api_passphrase": "api pass phrase",
+  "is_sandbox": true,
+  "symbol": "coin name",
+  "min_param": "minimal value for symbol transaction",
+  "price_param": "price interval for creating an order"
+}
