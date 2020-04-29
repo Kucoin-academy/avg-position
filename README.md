@@ -1,54 +1,76 @@
-# 均仓策略
+# Avg_position_strategy
 
-## 策略说明
+## Strategy description
 
-基于现货均衡仓位的策略，本质上是网格策略的简化版
+The strategy based on the spot average position is essentially a simplified version of the grid strategy. Keep fixing the ratio of the position of an investment target held to the total position. When the value of this investment target exceed an established threshold, sell part of the target to keep the ratio. When the value of this investment target become under than the established threshold, buy back part of the target to keep the ratio. Through continuous adjustment, the tartget ratio has been maintained at a fixed value to keep dynamic balancing.  
 
-**举个例子** ，假设当前比特币价格10000美元，账户同时持有等价值的1个BTC和10000USDT，如果币的价值大于账户余额10000USDT并且差价超过了阈值，如价格上涨到12000刀，就卖掉（12000 - 10000）/2/12000 = 0.0833 个币，币升值了，需要把钱兑换回来。如果币贬值了，比如下跌到8000刀，则买入（10000 - 8000）/2/8000 = 0.125个币。如果再涨了就再卖掉，平衡好现金与币的仓位，即维持现金与币的价值比为1:1，所以称为均仓策略。
 
-**均仓策略本质为网格策略，其收益来源于价格一定范围内来回波动，风险在于执行调仓操作后，价格继续单边上涨或下跌。**
 
- 一般价格变动范围设置在手续费的4倍左右为基准开始调优较为合理，市场活跃时，可以是手续费的1.5~2倍左右。市场不太活跃时，手续费的8倍，十倍，甚至二十，五十倍都是可以的。
+**e.g.** : If the BTC market price is 10000 USDT, while the balance is 1 BTC and 10000 USDT.  
 
-**控制最小交易数量，也可以降低交易频率，增加抓取到更优点位的概率，从而提高收益。**
+Scenario 1: If the value of BTC is greater than the balance 10000 USDT and exceeds the threshold, like the price rising to 12000 USDT, sell 0.0833 BTC = （12000 - 10000）/2/12000, then the price drop down back to 10000 USDT, we buy back the same amount of BTC.  
 
-**请注意，该策略是在现货市场对现价范围波动进行调仓。**
+Scenario 2: If the value of BTC is less than the balance 10000 USDT and under than the threshold, like the price dropping down to 8000 USDT, buy 0.125 BTC = (10000 - 8000）/2/8000, then the price rises back to 10000 USDT, we sell the same amount of BTC.  
 
-**这里仅提供一个简单且不完备的交易策略，所以在使用时请注意规避风险，当然，我们不希望你出现较多的亏损，所以在未经自己亲手测试之前，请千万不要直接在实际环境使用，我们也不想你成为一个慈善家！！！**
+**Summary: In this case, keep well the ratio between the target and the total position, that is, to maintain the value ratio of the base and the remaining funds in the account to 1: 1, so it is called the average position strategy**.  
 
-**不过，如果你想在实际环境中利用策略获得稳定的盈利，我们希望你能够在sandbox环境配合其他参数或是策略进行测试调整，以使你能够达到目的。**
 
-**当然，如果这个过程中，你遇到任何问题需要帮助亦或是有赚钱的策略想要分享，请在ISSUE中反映，我们会努力及时响应**。
 
-## 如何使用
+**Advantages: The strategy of averaging positions is essentially a grid strategy, and its income comes from the fluctuation of prices within a certain range, so it will perform better in a shock market. **  
 
-* 克隆该策略项目至本地后，安装依赖：
+**Disadvantages: The risk is that the price continues to rise or fall unilaterally after the adjustment of positions.**  
+
+In addition,   
+
+In general:  Trigger price range is set at about 4 times of the trading fee as the benchmark to start the adjustment is more reasonable.  
+
+Liquid market: It could be 1.5-2 times of the trading fee.  
+
+Illiquid market: It could be 8, 10, even 20 or 50 times of the trading fee.  
+
+**Controlling the minimum amounts of trades can also reduce the frequency of trades and increase the probability of grabbing a more dominant price, thereby increasing profit.**
+
+**Notice: This strategy is to adjust the current price range fluctuations in the spot market. ** 
+
+ 
+
+**Moreover, KuCoin provides the transaction data of level 3, great matching engine, and the commission discount specially offers to the API customers, which could greatly reduce the disadvantages of the trading operations. At the same time, we offer the sandbox environment as the data testing support to avoid the risks.**
+
+**Only a simple and incomplete trading strategy is provided here, so please pay attention to avoiding risks when using it. Of course, we do not want you to suffer more losses, so please do not directly run it in the actual environment before you have tested it yourself. We do not want you to become a philanthropist! ! !**
+
+**If you want to use the strategy in the actual environment to earn stable profits, we hope that you can make test adjustments in the sandbox environment with other parameters or strategies to enable you to achieve your goals. We also look forward to sharing your test data and Insights.**
+
+**Surely, if you encounter any problems in this process, or you have a profitable strategy to share, please reflect in ISSUE, we will try to respond in a timely manner.**
+
+## How to use
+
+* After clone this project to your local, install the dependency: 
 
   ```shell script
   pip install python-coin
   ```
 
-* 复制config.json.example，并重命名为config.json，然后完善相关的配置信息
+* Paste config.json.example,  rename as config.json, then add the relevant configuration information:   
 
   ```json
   {  
     "api_key": "api key",
     "api_secret": "api secret",
     "api_passphrase": "api pass phrase",
-    // 是否是沙盒环境
+    // if sandbox
     "is_sandbox": true,
-    // 货币名称，比如：BTC 
+    // contract name, e.g.:XBTUSDTM  
     "symbol": "coin name",
-    // 最小买卖阈值
+    // minimum trading threshold
     "min_param": "minimal value for symbol transaction",
-    // 当价格变动多少时进行一次买卖下单
+    // the nunmbers of fluctuations to place an order
     "price_param": "price interval for creating an order"
   }
   ```
 
   
 
-* 让你的策略运行起来：
+* Run your strategy
 
   ```shell
   ./avg_position.py
