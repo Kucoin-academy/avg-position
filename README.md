@@ -6,17 +6,17 @@ The strategy based on the spot average position is essentially a simplified vers
 
 
 
-**e.g.** : If the BTC market price is 10000 USDT, while the balance is 1 BTC and 10000 USDT.  
+**e.g.**: If the BTC market price is 10000 USDT, while the balance is 1 BTC and 10000 USDT.  
 
-Scenario 1: If the value of BTC is greater than the balance 10000 USDT and exceeds the threshold, like the price rising to 12000 USDT, sell 0.0833 BTC = （12000 - 10000）/2/12000, then the price drop down back to 10000 USDT, we buy back the same amount of BTC.  
+Scenario 1: If the value of BTC is greater than the balance 10000 USDT and exceeds the threshold, like the price rising to 12000 USDT, sell 0.0833 BTC = (12000 - 10000)/2/12000, then the price drop down back to 10000 USDT, we buy back the same amount of BTC.  
 
-Scenario 2: If the value of BTC is less than the balance 10000 USDT and under than the threshold, like the price dropping down to 8000 USDT, buy 0.125 BTC = (10000 - 8000）/2/8000, then the price rises back to 10000 USDT, we sell the same amount of BTC.  
+Scenario 2: If the value of BTC is less than the balance 10000 USDT and under than the threshold, like the price dropping down to 8000 USDT, buy 0.125 BTC = (10000 - 8000)/2/8000, then the price rises back to 10000 USDT, we sell the same amount of BTC.  
 
 **Summary: In this case, keep well the ratio between the target and the total position, that is, to maintain the value ratio of the base and the remaining funds in the account to 1: 1, so it is called the average position strategy**.  
 
 
 
-**Advantages: The strategy of averaging positions is essentially a grid strategy, and its income comes from the fluctuation of prices within a certain range, so it will perform better in a shock market. **  
+**Advantages: The strategy of averaging positions is essentially a grid strategy, and its income comes from the fluctuation of prices within a certain range, so it will perform better in a shock market.**  
 
 **Disadvantages: The risk is that the price continues to rise or fall unilaterally after the adjustment of positions.**  
 
@@ -30,7 +30,7 @@ Illiquid market: It could be 8, 10, even 20 or 50 times of the trading fee.
 
 **Controlling the minimum amounts of trades can also reduce the frequency of trades and increase the probability of grabbing a more dominant price, thereby increasing profit.**
 
-**Notice: This strategy is to adjust the current price range fluctuations in the spot market. ** 
+**Notice: This strategy is to adjust the current price range fluctuations in the spot market.** 
 
  
 
