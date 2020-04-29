@@ -59,7 +59,7 @@ Illiquid market: It could be 8, 10, even 20 or 50 times of the trading fee.
     "api_passphrase": "api pass phrase",
     // if sandbox
     "is_sandbox": true,
-    // contract name, e.g.:XBTUSDTM  
+    // contract name, e.g.: BTC  
     "symbol": "coin name",
     // minimum trading threshold
     "min_param": "minimal value for symbol transaction",
