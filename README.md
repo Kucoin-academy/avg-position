@@ -47,7 +47,7 @@ Illiquid market: It could be 8, 10, even 20 or 50 times of the trading fee.
 * After clone this project to your local, install the dependency: 
 
   ```shell script
-  pip install python-coin
+  pip install kucoin-python
   ```
 
 * Paste config.json.example,  rename as config.json, then add the relevant configuration information:   
