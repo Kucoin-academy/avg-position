@@ -45,7 +45,7 @@
 
 * 复制config.json.example，并重命名为config.json，然后完善相关的配置信息
 
-  ```json
+  ```
   {  
     "api_key": "api key",
     "api_secret": "api secret",
