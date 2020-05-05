@@ -52,7 +52,7 @@ Illiquid market: It could be 8, 10, even 20 or 50 times of the trading fee.
 
 * Paste config.json.example,  rename as config.json, then add the relevant configuration information:   
 
-  ```json
+  ```
   {  
     "api_key": "api key",
     "api_secret": "api secret",

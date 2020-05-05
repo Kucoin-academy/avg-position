@@ -1,2 +1,5 @@
 /.idea
 .DS_Store
+/config.json
+*.pyc
+/__pycache__
