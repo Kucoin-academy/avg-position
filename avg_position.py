@@ -26,12 +26,21 @@ class Avg(object):
         self.trade = Trade(self.api_key, self.api_secret, self.api_passphrase, is_sandbox=self.sandbox)
         self.symbol_trade = self.symbol+'-USDT'
 
+    def get_symbol_precision(self):
+        s = self.market.get_symbol_list()
+        sd = {}
+        for item in s:
+            if item.get('symbol') and item.get('symbol') == self.symbol_trade:
+                sd = item
+        return int(1 / float(sd['baseMinSize']))
+
 
 if __name__ == '__main__':
     avg = Avg()
     init_ticker = avg.market.get_ticker(avg.symbol_trade)
     init_price = float(init_ticker['price'])
     print('init_price =', init_price)
+    precision = avg.get_symbol_precision()
 
     while 1:
         time.sleep(1)
@@ -50,9 +59,11 @@ if __name__ == '__main__':
 
         # calculate the number that how much needs to buy
         to_buy = (available_usdt - available_symbol * now_price) / 2 / now_price
+        to_buy = int(to_buy * precision) / precision
         print('to_buy =', to_buy)
         # calculate the number that how much needs to sell
         to_sell = (available_symbol * now_price - available_usdt) / 2 / now_price
+        to_sell = int(to_sell * precision) / precision
         print('to_sell =', to_sell)
         if abs((now_price - init_price) / init_price) > avg.price_param:
             init_price = float(now_price)
