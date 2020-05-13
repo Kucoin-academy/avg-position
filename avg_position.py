@@ -3,6 +3,7 @@
 
 import json
 import time
+from decimal import Decimal
 
 from kucoin.client import Market, User, Trade
 
@@ -32,7 +33,7 @@ class Avg(object):
         for item in s:
             if item.get('symbol') and item.get('symbol') == self.symbol_trade:
                 sd = item
-        return int(1 / float(sd['baseMinSize']))
+        return int(1 / Decimal(sd['baseMinSize']))
 
 
 if __name__ == '__main__':
@@ -41,6 +42,7 @@ if __name__ == '__main__':
     init_price = float(init_ticker['price'])
     print('init_price =', init_price)
     precision = avg.get_symbol_precision()
+    print('precision =', precision)
 
     while 1:
         time.sleep(1)
