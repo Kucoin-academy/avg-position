@@ -1,78 +1,72 @@
-# Avg_position_strategy
+# 均仓策略
 
 [![Logo](https://img.shields.io/badge/KuCoin-KuMex-yellowgreen?style=flat-square)](https://github.com/Kucoin-academy/Guide)
 [![GitHub stars](https://img.shields.io/github/stars/Kucoin-academy/avg-position.svg?label=Stars&style=flat-square)](https://github.com/Kucoin-academy/avg-position)
 [![GitHub forks](https://img.shields.io/github/forks/Kucoin-academy/avg-position.svg?label=Fork&style=flat-square)](https://github.com/Kucoin-academy/avg-position)
 [![GitHub issues](https://img.shields.io/github/issues/Kucoin-academy/avg-position.svg?label=Issue&style=flat-square)](https://github.com/Kucoin-academy/avg-position/issues)
 
-[![](https://img.shields.io/badge/lang-English-informational.svg?longCache=true&style=flat-square)](README.md)
+[![](https://img.shields.io/badge/lang-English-informational.svg?longCache=true&style=flat-square)](README_EN.md)
 [![](https://img.shields.io/badge/lang-Chinese-red.svg?longCache=true&style=flat-square)](README_CN.md)
 
-## Strategy description
+## 策略说明
 
-The strategy based on the spot average position is essentially a simplified version of the grid strategy. Keep fixing the ratio of the position of an investment target held to the total position. When the value of this investment target exceed an established threshold, sell part of the target to keep the ratio. When the value of this investment target become under than the established threshold, buy back part of the target to keep the ratio. Through continuous adjustment, the tartget ratio has been maintained at a fixed value to keep dynamic balancing.  
+基于现货均衡仓位的策略，本质上是网格策略的简化版。将持有的某种投资标的的仓位占总仓位的比例固定。当超过这个价值比例时，卖出一部分标的；当低于这个价值比例时，买入一部分标的。通过不断调整，使得标的占比一直维持在一个固定值，达到动态的平衡。  
 
-**e.g.**: If the BTC market price is 10000 USDT, while the balance is 1 BTC and 10000 USDT.  
+**举个例子** ：假设当前比特币价格10000 USDT，账户同时持有等价值的1个BTC和10000USDT。
 
-Scenario 1: If the value of BTC is greater than the balance 10000 USDT and exceeds the threshold, like the price rising to 12000 USDT, sell 0.0833 BTC = (12000 - 10000)/2/12000, then the price drop down back to 10000 USDT, we buy back the same amount of BTC.  
+场景1：如果币的价值大于账户余额10000 USDT并且差价超过了阈值，如价格上涨到12000 USDT，就卖掉（12000 - 10000）/2/12000 = 0.0833 个BTC，BTC升值了，需要把钱兑换回来。  
 
-Scenario 2: If the value of BTC is less than the balance 10000 USDT and under than the threshold, like the price dropping down to 8000 USDT, buy 0.125 BTC = (10000 - 8000)/2/8000, then the price rises back to 10000 USDT, we sell the same amount of BTC.  
+场景2：如果币贬值了，比如下跌到8000USDT，则买入（10000 - 8000）/2/8000 = 0.125个BTC，如果再涨了就再卖掉。  
 
-**Summary: In this case, keep well the ratio between the target and the total position, that is, to maintain the value ratio of the base and the remaining funds in the account to 1: 1, so it is called the average position strategy**.  
+**总结： 此案例中，平衡好标的与总仓位的比例，即维持标底与账户剩余资金的价值比为1:1，所以称为均仓策略**。  
 
-**Advantages: The strategy of averaging positions is essentially a grid strategy, and its income comes from the fluctuation of prices within a certain range, so it will perform better in a shock market.**  
+**优势：均仓策略本质为网格策略，其收益来源于价格一定范围内来回波动，所以在震荡行情中表现 会更好**  
 
-**Disadvantages: The risk is that the price continues to rise or fall unilaterally after the adjustment of positions.**  
+**劣势：风险在于执行调仓操作后，价格继续单边上涨或下跌。**  
 
-In addition,   
+补充：一般价格变动范围设置在手续费的4倍左右为基准开始调优较为合理，市场活跃时，可以是手续费的1.5~2倍左右。市场不太活跃时，手续费的8倍，十倍，甚至二十，五十倍都是可以的。  
 
-In general:  Trigger price range is set at about 4 times of the trading fee as the benchmark to start the adjustment is more reasonable.  
+**控制最小交易数量，也可以降低交易频率，增加抓取到更优点位的概率，从而提高收益。**
 
-Liquid market: It could be 1.5-2 times of the trading fee.  
-
-Illiquid market: It could be 8, 10, even 20 or 50 times of the trading fee.  
-
-**Controlling the minimum amounts of trades can also reduce the frequency of trades and increase the probability of grabbing a more dominant price, thereby increasing profit.**
-
-**Notice: This strategy is to adjust the current price range fluctuations in the spot market.** 
+**请注意，该策略是在现货市场对现价范围波动进行调仓。**
 
 
 
-**KuCoin** provides **the transaction data of level 3, great matching engine, and the commission discount specially offers to the API customers**. At the same time, we offer the **sandbox environment** as the data testing support to avoid the risks.
+**KuCoin**拥有**level3交易数据、强大的撮合引擎、针对api用户提供的手续费折扣**，同时提供**sandbox环境**作为数据测试支撑，帮助你规避风险。
 
-Only a simple and incomplete trading strategy is provided here, so please pay attention to **avoiding risks** when using it. We hope that you can **make test adjustments in the sandbox environment with other parameters or strategies,  as we do not want you to become a philanthropist! ! !**
+我们仅提供一个简单且不完备的交易策略，使用时**请注意规避风险**，我们希望你能够**在sandbox环境配合其他参数或是策略进行测试调整，我们也不想你成为一个慈善家！！！**
 
-Surely, if you encounter any problems in this process, or you have a profitable strategy to share, please reflect in **ISSUE**, we will try to respond in a timely manner. 
+当然，如果这个过程中，你遇到任何问题或是有赚钱的策略想要分享，请在**ISSUE**中反映，我们会努力及时响应。
 
-:point_right: If you are interested in this strategy, please click **the star in the upper right corner**, we will  measure **the popularity of this strategy and subsequent optimization prioritie**s based on the amounts of stars. You can also click **watching in the upper right corner** to continue to follow this project by receiving update notifications. 
+:point_right: 如果你对该策略有兴趣，请点击**右上角star**，我们会根据star数来衡量策略的**受欢迎程度和后续优化优先级**，你也可以点击**右上角watching**通过接收更新通知来持续关注该项目。
 
-## How to use
+## 如何使用
 
-* Download Python
+* 安装Python
 
-  * Please download python in [Python](https://www.python.org/) official website for other system requirement(Such as **Windows**), if your computer is 64-bit operating system, please click 1, if it is 32-bit operating system, please click 2.
+  * Windows系统请前往[Python](https://www.python.org/downloads/windows/)官网自行安装，64位请选择1，32位请选择2。
 
     <img src="./img/python_download.png" style="zoom:50%" />
 
-    * Please note the following options when starting the installation:
+    * 在开始安装时请注意将以下选项勾选：
 
       <img src="./img/python_win.png" style="zoom:40%" />
 
-  * For MAC OS X
+  * MAC OS X安装
 
-    * Open terminal and enter the following command to download Homebrew(During the installation, you need to enter the **computer password**):
+    * 打开命令终端，输入以下命令安装Homebrew（安装过程中需要输入**电脑密码**）：
 
       ```shell
       /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
       ```
 
-    * Enter the following command in terminal to download Python3:
+    * 在命令终端输入以下命令，安装Python3：
 
       ```shell
       brew install python
       ```
 
-    * Enter the following command in terminal to confirm if you download successfully:
+    * 在命令终端输入以下命令，确认是否安装成功：
 
       ```shell
       python3 --version
@@ -80,9 +74,9 @@ Surely, if you encounter any problems in this process, or you have a profitable 
 
       ![](./img/python_version.gif)
 
-* Confirm that you have already downloaded git(Mac OS  already has this software, enther `which git` in terminal to check the path of the file）, if you did not download this software, please do it through the [git](https://git-scm.com/) official website.
+* 确保你已经安装git (mac 自带该软件,终端输入`which git`，查看安装位置)，未安装者请前往官网[git](https://git-scm.com/)安装。
 
-* Enter the following command in terminal to install the dependency:
+* 在命令终端输入以下命令，安装项目依赖：
 
   ```shell script
   pip3 install kucoin-python
@@ -90,7 +84,7 @@ Surely, if you encounter any problems in this process, or you have a profitable 
 
   ![pip_install](./img/pip_install.gif)
   
-* Create a new folder (such as the desktop) at the location where you need to run the strategy, right click on the newly created folder and select "**Create a new terminal window at the folder location**"(For Windows, right click the folder and select "**git Bash here**"), enter the following command in the pop-up window to clone the project to the local, and a folder **avg-position** will be added locally after completion:
+* 在你需要跑策略的位置新建文件夹（例如桌面），**右键**点击新建的文件夹选择“**新建位于文件夹位置的终端窗口**”（**windows**系统：在右键点击文件夹点击**git Bash here**），在弹出的窗口中输入以下命令，克隆项目至本地，完成后本地会新增文件夹**avg-position**：
   
   ```shell
   git clone https://github.com/Kucoin-academy/avg-position.git
@@ -98,41 +92,41 @@ Surely, if you encounter any problems in this process, or you have a profitable 
   
   ![git_clone](./img/git_clone.gif)
   
-* Open the (**avg-position**) project you have cloned,  rename **config.json.example** as **config.json**, using text editor(e.g., **notebook**) to open **config.json**, then add the relevant configuration information: 
+* 打开克隆好的项目（**avg-position**）文件夹，将**config.json.example**文件重命名为**config.json**，并用文本编辑器（比如**记事本**）打开**config.json**，然后完善相关的配置信息：
 
   ```
   {  
     "api_key": "api key",
     "api_secret": "api secret",
     "api_passphrase": "api pass phrase",
-    // if sandbox
+    // 是否是沙盒环境
     "is_sandbox": true,
-    // contract name, e.g.: BTC  
+    // 货币名称，比如：BTC 
     "symbol": "coin name",
-    // minimum trading threshold
+    // 最小买卖阈值
     "min_param": "minimal value for symbol transaction",
-    // the nunmbers of fluctuations to place an order
+    // 当价格变动多少时进行一次买卖下单
     "price_param": "price interval for creating an order"
   }
   ```
   
-* Mac/Linux open terminal **in the project directory**: 
+* Mac/Linux **在项目目录下**打开命令终端：
 
   ```shell
   cd avg-positon
   ```
-  * Using the following command to run your strategy:
+  * 用以下命令让你的策略运行起来：
   
     ```shell
     ./avg_position.py
     ```
   
-* Windows open terminal **in the project directory**: 
+* Windows **在项目目录下**打开命令终端：
 
   ```shell
   cd avg-positon
   ```
-  * Using the following command to run your strategy:
+  * 用以下命令让你的策略运行起来：
   
     ```shell
     py avg_position.py
